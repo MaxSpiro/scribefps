@@ -9,7 +9,7 @@ const Navbar = () => {
     <div className='flex items-center justify-between overflow-hidden bg-pink-400 p-4 text-white shadow-2xl'>
       <a href='/'>
         <div className='ml-4 flex items-center justify-between gap-4'>
-          <img src='/icons/cupcake.svg' alt='Scribe Logo' width={60} height={60} /> 
+          <img src='/icons/cupcake.svg' alt='Scribe Logo' width={60} height={60} />
           <p className='text-3xl font-extralight decoration-2 transition duration-75 hover:underline active:text-black'>
             The Scribe FPS
           </p>

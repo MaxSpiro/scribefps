@@ -3,7 +3,7 @@ import Layout from '../components/Layout.astro';
 ---
 
 <Layout title='Staff'>
-  <div class='flex flex-col items-center p-6 bg-gray-700 min-h-screen'>
+  <div class='bg-gray-700 flex flex-col items-center p-6 min-h-screen'>
     <h1 class='text-5xl font-bold text-white'>Editors in Chief</h1>
 
     <div class='p-6 flex flex-row flex-wrap justify-around w-10/12 gap-6'>
@@ -27,7 +27,7 @@ import Layout from '../components/Layout.astro';
 
     <h1 class='mt-8 text-5xl font-bold text-white'>Creative Director</h1>
 
-    <div class='bg-gray-900 p-4 rounded-xl flex flex-col items-center mt-6'>
+    <div class='bg-gray-500 p-4 rounded-xl flex flex-col items-center mt-6'>
       <div class='flex items-center justify-center rounded-xl max-h-64 overflow-hidden'>
         <img height={100} width={300} class='object-cover' src='/staff/me.jpg' />
       </div>
@@ -44,8 +44,10 @@ import Layout from '../components/Layout.astro';
         <img src='/staff/me.jpg' alt='Copy editors' class='object-cover max-w-full h-auto' />
       </div>
       <div class='w-full flex items-center justify-center'>
-        <div class='h-32 p-[0.01rem] bg-gray-400 mx-6'></div>
-        <div class='leading-normal font-semibold text-white text-4xl'>
+        <div class='h-16 md:h-24 lg:h-32 xl:h-48 p-[0.01rem] bg-gray-400 mx-6'></div>
+        <div
+          class='xl:leading-normal lg:leading-snug font-semibold text-white text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl'
+        >
           <p>Chiana Kelly '23</p>
           <p>Max Spiridonov '23</p>
           <p>Kiana Golchin '23</p>
@@ -55,9 +57,57 @@ import Layout from '../components/Layout.astro';
 
     <div class='w-full p-[0.01rem] bg-gray-400 m-6'></div>
 
-    <h1 class='text-5xl font-bold text-white'>Section Editors</h1>
+    <h1 class='text-5xl font-bold text-white mb-6'>Section Editors</h1>
 
-    <!-- 
-    <h1 class='text-5xl font-bold text-white'>Staff Members</h1> -->
+    <div class='gap-6 flex flex-wrap items-center justify-around'>
+      {
+        [
+          { section: 's&w', name: 'john' },
+          { section: 'a&c', name: 'john' },
+          { section: 'opinions', name: 'john' },
+          { section: 'features', name: 'john' },
+          { section: 'cover', name: 'john' },
+          { section: 'etc', name: 'john' },
+        ].map((editor) => {
+          return (
+            <div class='flex flex-col items-center rounded-xl bg-gray-500 p-4'>
+              <div class='flex h-64 w-64 items-center justify-center overflow-hidden rounded-xl'>
+                <img class='object-cover' src='/staff/me.jpg' />
+              </div>
+              <p class='mt-2 text-3xl text-white'>{editor.name}</p>
+              <p class='text-lg font-extralight text-white'>{editor.section} section</p>
+            </div>
+          );
+        })
+      }
+
+      <div class='w-full p-[0.01rem] bg-gray-400 m-6'></div>
+
+      <h1 class='text-5xl font-bold text-white mb-6'>Staff Writers</h1>
+
+      <div class='gap-6 flex flex-wrap items-center justify-around'>
+        {
+          [
+            { name: 'john doe', class: '2023' },
+            { name: 'walter doe', class: '2023' },
+            { name: 'natalia wornovitzky', class: '2023' },
+            { name: 'john doe', class: '2023' },
+            { name: 'john doe', class: '2023' },
+            { name: 'john doe', class: '2023' },
+            { name: 'john doe', class: '2023' },
+          ].map((student) => {
+            return (
+              <div class='flex flex-col items-center rounded-xl bg-gray-900 p-4'>
+                <div class='flex h-48 w-48 items-center justify-center overflow-hidden rounded-full'>
+                  <img class='object-cover' src='/staff/me.jpg' />
+                </div>
+                <p class='mt-2 text-3xl text-white'>{student.name}</p>
+                <p class='text-lg font-extralight text-white'>Class of {student.class}</p>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
   </div>
 </Layout>

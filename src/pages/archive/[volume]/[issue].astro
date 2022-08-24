@@ -1,0 +1,39 @@
+---
+import Layout from '../../../components/Layout.astro';
+import PageFlipper from '../../../components/PageFlipper';
+export async function getStaticPaths() {
+  const volumes = [
+    {
+      id: 'xxvi',
+      releasedIssues: ['1', '2', '3', '4'],
+    },
+  ];
+  const paths: any[] = [];
+  volumes.forEach((volume) => {
+    volume.releasedIssues.forEach((issue) => {
+      paths.push({
+        params: {
+          volume: volume.id,
+          issue: issue,
+        },
+        props: {
+          volume: volume.id,
+          issue: issue,
+          pages: 4,
+        },
+      });
+    });
+  });
+  return paths;
+}
+
+const { volume, issue, pages } = Astro.props;
+---
+
+<Layout title='five'>
+  <div class='bg-gray-700 flex flex-col items-center p-6 min-h-screen'>
+    <p class='text-white text-5xl'>Volume {volume.toUpperCase()} - Issue {issue}</p>
+
+    <PageFlipper client:visible volume={volume} issue={issue} pages={pages} />
+  </div>
+</Layout>
