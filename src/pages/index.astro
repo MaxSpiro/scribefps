@@ -3,12 +3,12 @@ import Layout from '../components/Layout.astro';
 ---
 
 <Layout title='The Scribe FPS'>
-  <div class='flex flex-nowrap'>
-    <div class='w-1/2 flex flex-col items-center justify-center'>
-      <div class='flex flex-col gap-6'>
+  <div class='flex-col md:flex-row flex'>
+    <div class='md:w-1/2 flex flex-col md:items-center justify-center p-8 md:p-0 w-full'>
+      <div class='flex flex-col gap-6 flex-1 justify-center'>
         <div>
-          <p class='text-pink-400 font-bold text-5xl mb-2'>The Scribe FPS</p>
-          <p class='text-black font-bold text-5xl'>Online</p>
+          <p class='text-pink-400 font-bold lg:text-4xl text-3xl xl:text-5xl md:mb-[0.75rem]'>The Scribe FPS</p>
+          <p class='text-black font-bold lg:text-4xl text-3xl xl:text-5xl'>Online</p>
         </div>
         <p class='text-black font-light'>The place for all your favorite articles</p>
         <div class='flex gap-6'>
@@ -26,7 +26,7 @@ import Layout from '../components/Layout.astro';
       </div>
     </div>
 
-    <div class='w-1/2 min-h-screen overflow-hidden'>
+    <div class='md:h-auto h-1/2 base:min-w-screen md:w-1/2 md:min-h-screen overflow-hidden'>
       <img src='./staff/staffpic.png' class='object-cover h-full w-full' />
     </div>
   </div>
