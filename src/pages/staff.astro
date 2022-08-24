@@ -1,0 +1,63 @@
+---
+import Layout from '../components/Layout.astro';
+---
+
+<Layout title='Staff'>
+  <div class='flex flex-col items-center p-6 bg-gray-700 min-h-screen'>
+    <h1 class='text-5xl font-bold text-white'>Editors in Chief</h1>
+
+    <div class='p-6 flex flex-row flex-wrap justify-around w-10/12 gap-6'>
+      <div class='bg-gray-900 p-4 rounded-xl flex flex-col items-center'>
+        <div class='flex items-center justify-center rounded-xl max-h-64 overflow-hidden'>
+          <img height={100} width={300} class='object-cover' src='/staff/me.jpg' />
+        </div>
+        <p class='text-white text-3xl mt-2'>Ethan Kassar</p>
+        <p class='text-white text-lg font-extralight'>Lorem ipsum dolor sit amet</p>
+      </div>
+      <div class='bg-gray-900 p-4 rounded-xl flex flex-col items-center'>
+        <div class='flex items-center justify-center rounded-xl max-h-64 overflow-hidden'>
+          <img height={100} width={300} class='object-cover' src='/staff/me.jpg' />
+        </div>
+        <p class='text-white text-3xl mt-2'>Emma Horne</p>
+        <p class='text-white text-lg font-extralight'>Lorem ipsum dolor sit amet</p>
+      </div>
+    </div>
+
+    <div class='w-full p-[0.01rem] bg-gray-400 m-6'></div>
+
+    <h1 class='mt-8 text-5xl font-bold text-white'>Creative Director</h1>
+
+    <div class='bg-gray-900 p-4 rounded-xl flex flex-col items-center mt-6'>
+      <div class='flex items-center justify-center rounded-xl max-h-64 overflow-hidden'>
+        <img height={100} width={300} class='object-cover' src='/staff/me.jpg' />
+      </div>
+      <p class='text-white text-3xl mt-2'>Isabelle Khoury</p>
+      <p class='text-white text-lg font-extralight'>Lorem ipsum dolor sit amet</p>
+    </div>
+
+    <div class='w-full p-[0.01rem] bg-gray-400 m-6'></div>
+
+    <h1 class='mt-8 mb-6 text-5xl font-bold text-white'>Copy Editors</h1>
+
+    <div class='max-h-96 flex rounded-xl overflow-hidden items-center bg-gray-900 w-full'>
+      <div class='w-1/2'>
+        <img src='/staff/me.jpg' alt='Copy editors' class='object-cover max-w-full h-auto' />
+      </div>
+      <div class='w-full flex items-center justify-center'>
+        <div class='h-32 p-[0.01rem] bg-gray-400 mx-6'></div>
+        <div class='leading-normal font-semibold text-white text-4xl'>
+          <p>Chiana Kelly '23</p>
+          <p>Max Spiridonov '23</p>
+          <p>Kiana Golchin '23</p>
+        </div>
+      </div>
+    </div>
+
+    <div class='w-full p-[0.01rem] bg-gray-400 m-6'></div>
+
+    <h1 class='text-5xl font-bold text-white'>Section Editors</h1>
+
+    <!-- 
+    <h1 class='text-5xl font-bold text-white'>Staff Members</h1> -->
+  </div>
+</Layout>
