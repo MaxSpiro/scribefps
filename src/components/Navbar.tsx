@@ -26,7 +26,7 @@ const Navbar = ({ children }: any) => {
             </a>
           ))}
         </div>
-        <div onClick={() => setIsOpen((prev) => !prev)} className='group cursor-pointer space-y-2 md:hidden'>
+        <div onClick={() => setIsOpen((prev) => !prev)} className='group mr-4 cursor-pointer space-y-2 md:hidden'>
           <div className='h-0.5 w-8 bg-white transition duration-75 group-hover:bg-black'></div>
           <div className='h-0.5 w-8 bg-white transition duration-75 group-hover:bg-black'></div>
           <div className='h-0.5 w-8 bg-white transition duration-75 group-hover:bg-black'></div>
@@ -34,11 +34,11 @@ const Navbar = ({ children }: any) => {
       </div>
       <div
         style={{
-          opacity: !isOpen ? '0' : '1',
-          transition: 'all .2s',
+          left: isOpen ? '0' : '-100%',
+          transition: 'all .3s',
           visibility: !isOpen ? 'hidden' : 'visible',
         }}
-        className='absolute z-10 flex h-full w-1/2 flex-col gap-6 overflow-hidden bg-pink-400 '
+        className='absolute z-10 flex h-full w-1/4 flex-col gap-6 overflow-hidden border bg-pink-400 '
       >
         {NavItems.map(({ label, href }) => (
           <a
