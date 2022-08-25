@@ -3,25 +3,26 @@ import { useState } from 'react';
 interface PageFlipperProps {
   volume: string;
   issue: number;
-  pages: number;
+  pages: any[];
+  numPages: number;
 }
-const PageFlipper = ({ volume, issue, pages }: PageFlipperProps) => {
-  const [page, setPage] = useState(1);
+const PageFlipper = ({ volume, issue, pages, numPages }: PageFlipperProps) => {
+  const [page, setPage] = useState(0);
 
   const prevPage = () => {
-    if (page > 1) {
+    if (page > 0) {
       setPage(page - 1);
     }
   };
   const nextPage = () => {
-    if (page < pages) {
+    if (page < numPages - 1) {
       setPage(page + 1);
     }
   };
   return (
     <div className='flex items-center justify-center gap-6 p-6'>
       <img onClick={prevPage} className='cursor-pointer' width={40} height={40} src='/icons/arrow-left.svg' />
-      <img src={`/vol${volume}/issue${issue}/${page}.png`} />
+      {pages[page] && <img src={pages[page].pageUrl} />}
       <img onClick={nextPage} className='cursor-pointer' width={40} height={40} src='/icons/arrow-right.svg' />
     </div>
   );

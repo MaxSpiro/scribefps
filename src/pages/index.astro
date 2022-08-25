@@ -1,6 +1,6 @@
 ---
-import Layout from '../components/Layout.astro';
-import { client, getUrlByRef } from '../lib/sanityClient';
+import Layout from 'components/Layout.astro';
+import { client, getUrlByRef } from 'lib/sanityClient';
 const staffInfo = await client.fetch(`*[_type == "staffInfo"]`);
 const staffPicRef = staffInfo[0].staffPic.asset._ref;
 const staffPicUrl = await getUrlByRef(staffPicRef);
