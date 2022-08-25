@@ -1,25 +1,51 @@
 ---
-import Layout from '../../../components/Layout.astro';
-import PageFlipper from '../../../components/PageFlipper';
+import Layout from 'components/Layout.astro';
+import PageFlipper from 'components/PageFlipper';
+import { client, getUrlByRef } from 'lib/sanityClient';
 export async function getStaticPaths() {
-  const volumes = [
-    {
-      id: 'xxvi',
-      releasedIssues: ['1', '2', '3', '4'],
-    },
-  ];
+  const volumeData = await client.fetch(`*[_type == "volumes"]`);
+  const volumes: any[] = await Promise.all(
+    volumeData[0].volumes.map(async (volume: any) => {
+      const issues = await Promise.all(
+        volume.issues.map(async (issue: any) => {
+          const pages: any[] =
+            issue.pages &&
+            (await Promise.all(
+              issue.pages.map(async (page: any) => {
+                return {
+                  pageNumber: page.pageNumber,
+                  pageUrl: await getUrlByRef(page.pageImage.asset._ref),
+                };
+              })
+            ));
+          return {
+            name: issue.issueName,
+            number: issue.issueNumber,
+            coverUrl: await getUrlByRef(issue.cover.asset._ref),
+            pages: pages ?? [],
+          };
+        })
+      );
+      return {
+        number: volume.volumeNumber,
+        years: volume.volumeYears,
+        issues,
+      };
+    })
+  );
   const paths: any[] = [];
   volumes.forEach((volume) => {
-    volume.releasedIssues.forEach((issue) => {
+    volume.issues.forEach((issue: any) => {
       paths.push({
         params: {
-          volume: volume.id,
-          issue: issue,
+          volume: volume.number.toString(),
+          issue: issue.number.toString(),
         },
         props: {
-          volume: volume.id,
-          issue: issue,
-          pages: 4,
+          volumeNumber: volume.number,
+          issueNumber: issue.number,
+          pages: issue.pages,
+          numPages: issue.pages.length,
         },
       });
     });
@@ -27,13 +53,20 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { volume, issue, pages } = Astro.props;
+const { volumeNumber, issueNumber, numPages } = Astro.props;
+const pages = (Astro.props.pages as any[]).sort((a, b) => a.pageNumber - b.pageNumber);
 ---
 
 <Layout title='five'>
   <div class='bg-gray-700 flex flex-col items-center p-6 min-h-screen'>
-    <p class='text-white text-5xl'>Volume {volume.toUpperCase()} - Issue {issue}</p>
+    <h1 class='text-white text-5xl'>Volume {volumeNumber.toUpperCase()} - Issue {issueNumber}</h1>
 
-    <PageFlipper client:visible volume={volume} issue={issue} pages={pages} />
+    {
+      numPages === 0 ? (
+        <h1 class='mt-6 text-4xl text-white'>We couldn't find any pages, try again later!</h1>
+      ) : (
+        <PageFlipper client:visible volume={volumeNumber} issue={issueNumber} pages={pages} numPages={numPages} />
+      )
+    }
   </div>
 </Layout>

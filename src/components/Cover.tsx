@@ -1,6 +1,3 @@
-import Link from 'next/link';
-import Image from 'next/image';
-
 interface CoverProps {
   released?: boolean;
   title: string;
@@ -19,7 +16,7 @@ export const Cover = ({ released = false, title, imgSrc, issueNum, volNum }: Cov
           </a>{' '}
         </div>
       ) : (
-        <div className='h-[30rem] border-4 border-dashed bg-pink-400' />
+        <div className='h-[32rem] border-4 border-dashed bg-pink-400' />
       )}
       <h1 className='mt-6 text-lg text-white'>{released ? `Issue ${issueNum} - ${title}` : 'Coming soon!'}</h1>
     </div>
