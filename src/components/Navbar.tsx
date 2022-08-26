@@ -1,28 +1,31 @@
 import { useState } from 'react';
 
-const NavItems: { label: string; href: string }[] = [
-  { label: 'Meet the Staff', href: '/staff' },
-  { label: 'About Us', href: '/about' },
-  { label: 'Archive', href: '/archive' },
+const NavItems: { label: string; href: string; iconSrc: string }[] = [
+  { label: 'Meet the Staff', href: '/staff', iconSrc: '/icons/person.svg' },
+  { label: 'About Us', href: '/about', iconSrc: '/icons/group.svg' },
+  { label: 'Archive', href: '/archive', iconSrc: '/icons/archive.svg' },
 ];
 
 const Navbar = ({ children }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <div className='flex items-center justify-between overflow-hidden bg-pink-400 p-4 text-white shadow-2xl'>
+      <div className='flex items-center justify-between overflow-hidden bg-pink-400 py-4 px-6 text-white shadow-2xl'>
         <a href='/'>
-          <div className='ml-4 flex items-center justify-between gap-4'>
-            <img src='/icons/cupcake.svg' alt='Scribe Logo' width={60} height={60} />
-            <p className='text-3xl font-extralight decoration-2 transition duration-75 hover:underline active:text-black'>
+          <div className='ml-4 flex items-center justify-between gap-2'>
+            <img src='/icons/cupcake.svg' alt='Scribe Logo' width={40} height={40} />
+            <p className='text-2xl font-extralight decoration-2 transition duration-75 hover:underline active:text-black'>
               The Scribe FPS
             </p>
           </div>
         </a>
         <div className='mr-4 hidden items-center justify-between gap-16 md:flex'>
-          {NavItems.map(({ label, href }) => (
+          {NavItems.map(({ label, href, iconSrc }) => (
             <a key={label} href={href}>
-              <p className='text-xl transition duration-75 hover:underline active:text-black'>{label}</p>
+              <button className='text-md flex rounded-2xl border bg-transparent p-2 transition duration-75 hover:bg-white hover:text-black active:bg-transparent active:text-white'>
+                {/* <img src={iconSrc} width={25} /> */}
+                {label}
+              </button>
             </a>
           ))}
         </div>
@@ -38,17 +41,31 @@ const Navbar = ({ children }: any) => {
           transition: 'all .3s',
           visibility: !isOpen ? 'hidden' : 'visible',
         }}
-        className='absolute z-10 flex h-full w-1/4 flex-col gap-6 overflow-hidden border bg-pink-400 '
+        className='absolute top-0 z-10 flex h-screen w-screen flex-col gap-6 overflow-hidden border bg-pink-400 p-4 pr-6 pt-6 '
       >
-        {NavItems.map(({ label, href }) => (
-          <a
-            className='pl-6 text-xl font-light text-white decoration-2 transition duration-75 hover:underline active:text-black'
-            key={label}
-            href={href}
-          >
-            {label}
-          </a>
-        ))}
+        <div className='flex w-full justify-between'>
+          <div className='flex items-center justify-between'>
+            <a href='/'>
+              <p className='flex gap-4 text-2xl font-extralight text-white decoration-2 transition duration-75 hover:underline active:text-black'>
+                <img src='/icons/home.svg' width={25} />
+                Home
+              </p>
+            </a>
+          </div>
+          <img className='cursor-pointer' src='icons/x.svg' width={25} onClick={() => setIsOpen(false)} />
+        </div>
+        <div className='flex flex-col gap-6'>
+          {NavItems.map(({ label, href, iconSrc }) => (
+            <a
+              className='flex gap-4 text-xl font-light text-white decoration-2 transition duration-75 hover:underline active:text-black'
+              key={label}
+              href={href}
+            >
+              <img src={iconSrc} width={25} />
+              {label}
+            </a>
+          ))}
+        </div>
       </div>
       <div
         onClick={() => {
