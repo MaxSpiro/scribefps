@@ -21,6 +21,7 @@
     "react-dom": "^18.0.0"
   },
   "dependencies": {
-    "@sanity/client": "^3.3.3"
+    "@sanity/client": "^3.3.3",
+    "astro-icon": "^0.7.3"
   }
 }
