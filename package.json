@@ -24,6 +24,6 @@
     "@sanity/client": "^3.3.3",
     "@types/react-typing-effect": "^2.0.3",
     "astro-icon": "^0.7.3",
-    "react-typing-effect": "^2.0.5"
+    "react-typical": "^0.1.3"
   }
 }

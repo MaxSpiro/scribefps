@@ -1,18 +1,13 @@
-import ReactTypingEffect from 'react-typing-effect';
+import Typical from 'react-typical';
 
-export const Hero = () => {
+const Hero = () => {
   return (
     <div className='flex flex-1 flex-col justify-center gap-6'>
       <div>
         <p className='text-4xl font-bold text-pink-400 md:mb-[0.75rem] md:text-5xl'>The Scribe FPS</p>
-        <ReactTypingEffect
-          text={'Online'}
-          displayTextRenderer={(text) => {
-            return <p className='text-4xl font-bold text-black md:text-5xl'>{text}</p>;
-          }}
-          typingDelay={1000}
-          cursorClassName='text-4xl'
-        />
+        <p className='text-4xl font-bold text-black md:text-5xl'>
+          <Typical steps={['Online', 3000, '', 2000]} loop={Infinity} />
+        </p>
       </div>
       <p className='font-light text-black'>The place for all your favorite articles</p>
       <div className='flex gap-6'>
@@ -30,3 +25,5 @@ export const Hero = () => {
     </div>
   );
 };
+
+export default Hero;
