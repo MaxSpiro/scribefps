@@ -2,7 +2,7 @@
 import Layout from 'components/Layout.astro';
 import { Volume } from 'components/Volume';
 
-import { client, getUrlByRef } from '../../lib/sanityClient';
+import { client, getUrlByRef } from 'lib/sanityClient';
 const volumeData = await client.fetch(`*[_type == "volumes"]`);
 const volumes: any[] = await Promise.all(
   volumeData[0].volumes.map(async (volume: any) => {

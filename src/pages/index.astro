@@ -1,5 +1,6 @@
 ---
 import Layout from 'components/Layout.astro';
+import Hero from 'components/Hero';
 import { client, getUrlByRef } from 'lib/sanityClient';
 const staffInfo = await client.fetch(`*[_type == "staffInfo"]`);
 const staffPicRef = staffInfo[0].staffPic.asset._ref;
@@ -9,25 +10,7 @@ const staffPicUrl = await getUrlByRef(staffPicRef);
 <Layout title='The Scribe FPS'>
   <div class='flex-col md:flex-row flex'>
     <div class='md:w-1/2 flex flex-col md:items-center justify-center p-8 md:p-0 w-full'>
-      <div class='flex flex-col gap-6 flex-1 justify-center'>
-        <div>
-          <p class='text-pink-400 font-bold text-4xl md:text-5xl md:mb-[0.75rem]'>The Scribe FPS</p>
-          <p class='text-black font-bold text-4xl md:text-5xl'>Online</p>
-        </div>
-        <p class='text-black font-light'>The place for all your favorite articles</p>
-        <div class='flex gap-6'>
-          <a href='/archive'>
-            <button class='transition bg-pink-400 py-2 px-4 text-white rounded-full hover:bg-pink-500'
-              >Latest Issue</button
-            >
-          </a>
-          <a href='/about'>
-            <button class='transition bg-slate-200 py-2 px-4 text-black rounded-full hover:bg-slate-300'
-              >About Us</button
-            >
-          </a>
-        </div>
-      </div>
+      <Hero client:visible />
     </div>
 
     <div class='md:h-auto h-1/2 base:min-w-screen md:w-1/2 md:min-h-screen overflow-hidden'>

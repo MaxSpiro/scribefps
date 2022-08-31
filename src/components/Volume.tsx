@@ -13,7 +13,14 @@ export const Volume = ({ volNum, years, issues }: VolumeProps) => {
       <div className='w-full bg-gray-400 p-[0.01rem]'></div>
       <div className='flex w-full flex-wrap items-center justify-around'>
         {issues.map((issue) => (
-          <Cover released title={issue.name} issueNum={issue.number} volNum={volNum} imgSrc={issue.coverUrl} />
+          <Cover
+            released
+            key={issue.name}
+            title={issue.name}
+            issueNum={issue.number}
+            volNum={volNum}
+            imgSrc={issue.coverUrl}
+          />
         ))}
       </div>
     </div>
