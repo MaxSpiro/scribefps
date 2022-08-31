@@ -1,0 +1,19 @@
+---
+import Layout from 'components/Layout.astro';
+---
+
+<Layout title='404 Not Found' absoluteFooter>
+  <div class='bg-gray-700 min-h-screen p-8 flex flex-col gap-2 items-center justify-between text-white'>
+    <div class='flex-col flex gap-2 items-center'>
+      <h1 class='text-5xl'>That page doesn't exist, sorry!</h1>
+      <div class='flex gap-2'>
+        <h1 class='text-4xl'>Use these buttons to navigate elsewhere</h1><img width={35} src='/icons/arrow-up.svg' />
+      </div>
+    </div>
+    <div class='self-center justify-self-center flex flex-col gap-2 items-center'>
+      <img width={200} src='/icons/cupcake.svg' />
+      <h1 class='text-4xl'>Or enjoy this cupcake</h1>
+    </div>
+    <div></div>
+  </div>
+</Layout>
