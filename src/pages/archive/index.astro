@@ -4,39 +4,41 @@ import { Volume } from 'components/Volume';
 
 import { client, getUrlByRef } from 'lib/sanityClient';
 const volumeData = await client.fetch(`*[_type == "volumes"]`);
-const volumes: any[] = await Promise.all(
-  volumeData[0].volumes.map(async (volume: any) => {
-    const issues = await Promise.all(
-      volume.issues.map(async (issue: any) => {
-        const pages =
-          issue.pages &&
-          (await Promise.all(
-            issue.pages.map(async (page: any) => {
-              return {
-                pageNumber: page.pageNumber,
-                pageUrl: await getUrlByRef(page.pageImage.asset._ref),
-              };
-            })
-          ));
+const volumes: any[] = !!volumeData.length
+  ? await Promise.all(
+      volumeData[0].volumes.map(async (volume: any) => {
+        const issues = await Promise.all(
+          volume.issues.map(async (issue: any) => {
+            const pages =
+              issue.pages &&
+              (await Promise.all(
+                issue.pages.map(async (page: any) => {
+                  return {
+                    pageNumber: page.pageNumber,
+                    pageUrl: await getUrlByRef(page.pageImage.asset._ref),
+                  };
+                })
+              ));
+            return {
+              name: issue.issueName,
+              number: issue.issueNumber,
+              coverUrl: await getUrlByRef(issue.cover.asset._ref),
+              pages: pages ?? [],
+            };
+          })
+        );
         return {
-          name: issue.issueName,
-          number: issue.issueNumber,
-          coverUrl: await getUrlByRef(issue.cover.asset._ref),
-          pages: pages ?? [],
+          number: volume.volumeNumber,
+          years: volume.volumeYears,
+          issues,
         };
       })
-    );
-    return {
-      number: volume.volumeNumber,
-      years: volume.volumeYears,
-      issues,
-    };
-  })
-);
+    )
+  : [];
 ---
 
 <Layout title='Archive'>
-  <div class='flex flex-col p-6 items-center px-6 md:px-12 lg:px-20 xl:px-28 text-white bg-gray-700'>
+  <div class='flex flex-col p-6 items-center min-h-[85vh] px-6 md:px-12 lg:px-20 xl:px-28 text-white bg-gray-700'>
     <h1 class='mb-6 text-5xl self-start font-semibold'>The Scribe Vault</h1>
     <p class='mb-6 text-2xl self-start font-light'>The place for all your favorite articles</p>
     {volumes.map((volume) => <Volume volNum={volume.number} years={volume.years} issues={volume.issues} />)}

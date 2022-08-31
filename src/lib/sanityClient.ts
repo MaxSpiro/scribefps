@@ -2,9 +2,9 @@ import sanityClient from '@sanity/client';
 
 export const client = new sanityClient({
   projectId: import.meta.env.SANITY_PROJECT_ID,
-  dataset: 'development',
+  dataset: "import.meta.env.SANITY_DATASET",
   apiVersion: '2022-08-24',
-  useCdn: false,
+  useCdn: true,
 });
 
 export const getUrlByRef = async (ref: string) => {
