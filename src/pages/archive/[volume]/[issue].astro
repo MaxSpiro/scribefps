@@ -59,7 +59,9 @@ const pages = (Astro.props.pages as any[]).sort((a, b) => a.pageNumber - b.pageN
 
 <Layout title='five'>
   <div class='bg-gray-700 flex flex-col items-center p-6 min-h-screen'>
-    <h1 class='text-white text-5xl'>Volume {volumeNumber.toUpperCase()} - Issue {issueNumber}</h1>
+    <h1 class='text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl'>
+      Volume {volumeNumber.toUpperCase()} - Issue {issueNumber}
+    </h1>
 
     {
       numPages === 0 ? (

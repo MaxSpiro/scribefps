@@ -1,5 +1,6 @@
 ---
 import Layout from 'components/Layout.astro';
+import StaffMember from 'components/StaffMember';
 import { client, getUrlByRef } from 'lib/sanityClient';
 const staffInfo = await client.fetch(`*[_type == "staffInfo"]`);
 
@@ -19,6 +20,12 @@ const creativeDirectorInfo = staffInfo[0].creativeDirector;
 const creativeDirector = {
   name: creativeDirectorInfo.name,
   portraitUrl: await getUrlByRef(creativeDirectorInfo.portrait.asset._ref),
+};
+
+const managingEditorInfo = staffInfo[0].managingEditor;
+const managingEditor = {
+  name: managingEditorInfo.name,
+  portraitUrl: await getUrlByRef(managingEditorInfo.portrait.asset._ref),
 };
 
 const copyEditorInfo = staffInfo[0].copyEditors;
@@ -51,39 +58,47 @@ const staffWriters = await Promise.all(
 ---
 
 <Layout title='Staff'>
-  <div class='bg-gray-700 flex flex-col items-center p-6 min-h-screen'>
-    <div class='p-6 flex flex-row flex-wrap justify-around w-10/12 gap-6'>
-      <div class='flex flex-col items-center rounded-xl bg-gray-900 p-4'>
-        <div class='flex h-64 items-center justify-center overflow-hidden rounded-xl'>
-          <img height={100} width={300} class='object-cover' src={editorsInChief[0].portraitUrl} />
-        </div>
-        <p class='mt-2 text-3xl text-white'>{editorsInChief[0].name}</p>
-        <p class='text-lg font-extralight text-white'>Editor-in-Chief</p>
-      </div>
-
-      <div class='flex flex-col items-center rounded-xl bg-gray-600 p-4'>
-        <div class='flex h-64 items-center justify-center overflow-hidden rounded-xl'>
-          <img height={100} width={300} class='object-cover' src={creativeDirector.portraitUrl} />
-        </div>
-        <p class='mt-2 text-3xl text-white'>{creativeDirector.name}</p>
-        <p class='text-lg font-extralight text-white'>Creative Director</p>
-      </div>
+  <div class='bg-gray-700 flex flex-col items-center p-2 md:p-6 min-h-screen'>
+    <h1 class='mb-6 text-5xl font-bold text-white'>Leading Staff</h1>
+    <div class='grid grid-cols-4 lg:grid-cols-8 gap-2 md:gap-6 w-full'>
+      {/* flex flex-row flex-wrap justify-around gap-6  */}
+      <StaffMember
+        size={400}
+        name={editorsInChief[0].name}
+        subtext='Editor-in-Chief'
+        imgSrc={editorsInChief[0].portraitUrl}
+        bg='gray-900'
+      />
+      <StaffMember
+        size={400}
+        name={creativeDirector.name}
+        subtext='Creative Director'
+        imgSrc={creativeDirector.portraitUrl}
+        bg='gray-900'
+      />
       {
         editorsInChief.length > 1 && (
-          <div class='flex flex-col items-center rounded-xl bg-gray-900 p-4'>
-            <div class='flex h-64 items-center justify-center overflow-hidden rounded-xl'>
-              <img height={100} width={300} class='object-cover' src={editorsInChief[1].portraitUrl} />
-            </div>
-            <p class='mt-2 text-3xl text-white'>{editorsInChief[1].name}</p>
-            <p class='text-lg font-extralight text-white'>Editor-in-Chief</p>
-          </div>
+          <StaffMember
+            size={400}
+            name={editorsInChief[1].name}
+            subtext='Editor-in-Chief'
+            imgSrc={editorsInChief[1].portraitUrl}
+            bg='gray-900'
+          />
         )
       }
+      <StaffMember
+        size={400}
+        name={managingEditor.name}
+        subtext='Managing Editor'
+        imgSrc={managingEditor.portraitUrl}
+        bg='gray-900'
+      />
     </div>
 
     <div class='w-full p-[0.01rem] bg-gray-400 m-6'></div>
 
-    <h1 class='mt-8 mb-6 text-5xl font-bold text-white'>Copy Editors</h1>
+    <h1 class='mb-6 text-5xl font-bold text-white'>Copy Editors</h1>
 
     <div class='max-h-96 flex rounded-xl overflow-hidden items-center bg-gray-900 w-full'>
       <div class='w-1/2'>
@@ -127,13 +142,13 @@ const staffWriters = await Promise.all(
       {
         staffWriters.map((student) => {
           return (
-            <div class='flex flex-col items-center rounded-xl bg-gray-900 p-4'>
-              <div class='flex h-48 w-48 items-center justify-center overflow-hidden rounded-full'>
-                <img class='object-cover' src={student.portraitUrl} />
-              </div>
-              <p class='mt-2 text-3xl text-white'>{student.name}</p>
-              <p class='text-lg font-extralight text-white'>Class of {student.year}</p>
-            </div>
+            <StaffMember
+              size={200}
+              name={student.name}
+              subtext={`Class of ${student.year}`}
+              imgSrc={student.portraitUrl}
+              bg='gray-900'
+            />
           );
         })
       }
