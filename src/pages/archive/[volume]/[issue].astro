@@ -57,7 +57,7 @@ const { volumeNumber, issueNumber, numPages } = Astro.props;
 const pages = (Astro.props.pages as any[]).sort((a, b) => a.pageNumber - b.pageNumber);
 ---
 
-<Layout title='five'>
+<Layout title={`Issue ${issueNumber}`}>
   <div class='bg-gray-700 flex flex-col items-center p-6 min-h-screen'>
     <h1 class='text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl'>
       Volume {volumeNumber.toUpperCase()} - Issue {issueNumber}
