@@ -59,13 +59,13 @@ const pages = (Astro.props.pages as any[]).sort((a, b) => a.pageNumber - b.pageN
 
 <Layout title={`Issue ${issueNumber}`}>
   <div class='bg-gray-700 flex flex-col items-center p-6 min-h-screen'>
-    <h1 class='text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl'>
+    <h1 class='text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-6'>
       Volume {volumeNumber.toUpperCase()} - Issue {issueNumber}
     </h1>
 
     {
       numPages === 0 ? (
-        <h1 class='mt-6 text-4xl text-white'>We couldn't find any pages, try again later!</h1>
+        <h1 class='text-4xl text-white'>We couldn't find any pages, try again later!</h1>
       ) : (
         <PageFlipper client:visible volume={volumeNumber} issue={issueNumber} pages={pages} numPages={numPages} />
       )

@@ -7,44 +7,44 @@ interface PageFlipperProps {
   numPages: number;
 }
 
-const PageSizes: {
-  [key: string]: number;
-} = {
-  XL: 1056,
-  LG: 800,
-  MD: 640,
-  SM: 480,
-};
 const PageFlipper = ({ volume, issue, pages, numPages }: PageFlipperProps) => {
-  const [page, setPage] = useState(0);
-  const [height, setHeight] = useState<number>(PageSizes.LG);
+  const [pageIndex, setPageIndex] = useState(0);
+  const [inputValue, setInputValue] = useState((pageIndex + 1).toString());
+
+  const currentPage = pages[pageIndex];
+
+  const height = 800; // or 1056 or 640
   const width = Math.floor((height * 8.5) / 11);
   const arrowSize = height / 30;
 
   const prevPage = () => {
-    if (page > 0) {
-      setPage(page - 1);
+    if (pageIndex > 0) {
+      const newPageIndex = pageIndex - 1;
+      setPageIndex(newPageIndex);
+      setInputValue((newPageIndex + 1).toString());
     }
   };
   const nextPage = () => {
-    if (page < numPages - 1) {
-      setPage(page + 1);
+    if (pageIndex < numPages - 1) {
+      const newPageIndex = pageIndex + 1;
+      setPageIndex(newPageIndex);
+      setInputValue((newPageIndex + 1).toString());
+    }
+  };
+
+  const handleChange = (value: string) => {
+    if (/^\d*$/.test(value)) {
+      setInputValue(value);
+    }
+    if (Number(value)) {
+      const index = Number(value) - 1;
+      if (index < numPages && index >= 0) {
+        setPageIndex(index);
+      }
     }
   };
   return (
     <>
-      <div className='my-2 grid w-full grid-cols-4 gap-2 px-6'>
-        {Object.keys(PageSizes).map((pageSize) => {
-          return (
-            <button
-              className={`rounded-xl ${height === PageSizes[pageSize] ? 'bg-gray-400' : 'bg-gray-300'}`}
-              onClick={() => setHeight(PageSizes[pageSize])}
-            >
-              {pageSize}
-            </button>
-          );
-        })}
-      </div>
       <div className='flex items-center justify-center md:gap-6'>
         <img
           onClick={prevPage}
@@ -53,7 +53,7 @@ const PageFlipper = ({ volume, issue, pages, numPages }: PageFlipperProps) => {
           height={arrowSize}
           src='/icons/arrow-left.svg'
         />
-        {pages[page] && <img height={height} width={width} src={pages[page].pageUrl} />}
+        {currentPage && <img height={height} width={width} src={currentPage.pageUrl} />}
         <img
           onClick={nextPage}
           className='cursor-pointer'
@@ -61,6 +61,10 @@ const PageFlipper = ({ volume, issue, pages, numPages }: PageFlipperProps) => {
           height={arrowSize}
           src='/icons/arrow-right.svg'
         />
+      </div>
+      <div className='mt-4 flex items-center justify-center gap-2'>
+        <p className='text-xl'>Jump to page:</p>
+        <input className='input' value={inputValue} onChange={(e) => handleChange(e.target.value)} />
       </div>
     </>
   );

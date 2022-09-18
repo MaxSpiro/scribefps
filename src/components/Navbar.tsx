@@ -21,11 +21,9 @@ const Navbar = ({ children }: any) => {
         </a>
         <div className='mr-4 hidden items-center justify-between gap-16 md:flex'>
           {NavItems.map(({ label, href, iconSrc }) => (
-            <a key={label} href={href}>
-              <button className='text-md flex rounded-2xl border bg-transparent p-2 transition duration-75 hover:bg-white hover:text-black active:bg-transparent active:text-white'>
-                {/* <img src={iconSrc} width={25} /> */}
-                {label}
-              </button>
+            <a key={label} href={href} className='text-md btn btn-primary flex rounded-2xl p-2'>
+              {/* <img src={iconSrc} width={25} /> */}
+              {label}
             </a>
           ))}
         </div>
