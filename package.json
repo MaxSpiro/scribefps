@@ -22,8 +22,10 @@
   },
   "dependencies": {
     "@sanity/client": "^3.3.3",
+    "@types/react-typical": "^0.1.0",
     "@types/react-typing-effect": "^2.0.3",
     "astro-icon": "^0.7.3",
+    "daisyui": "^2.28.0",
     "react-typical": "^0.1.3"
   }
 }
