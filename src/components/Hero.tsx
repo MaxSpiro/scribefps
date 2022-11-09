@@ -2,7 +2,7 @@ import Typical from 'react-typical';
 
 const Hero = () => {
   return (
-    <div className='flex flex-1 flex-col justify-center gap-6 text-white'>
+    <div className='flex flex-1 flex-col justify-center gap-6 text-black'>
       <div>
         <p className='text-4xl font-bold text-pink-400 md:mb-[0.75rem] md:text-5xl'>The Scribe FPS</p>
         <p className='text-4xl font-bold md:text-5xl'>

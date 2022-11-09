@@ -21,7 +21,7 @@ const Navbar = ({ children }: any) => {
         </a>
         <div className='mr-4 hidden items-center justify-between gap-16 md:flex'>
           {NavItems.map(({ label, href, iconSrc }) => (
-            <a key={label} href={href} className='text-md btn btn-primary flex rounded-2xl p-2'>
+            <a key={label} href={href} className='text-md btn btn-outline flex rounded-2xl p-2'>
               {/* <img src={iconSrc} width={25} /> */}
               {label}
             </a>
