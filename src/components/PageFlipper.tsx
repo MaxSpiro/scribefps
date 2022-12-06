@@ -4,62 +4,64 @@ interface PageFlipperProps {
   volume: string;
   issue: number;
   pages: any[];
-  numPages: number;
 }
 
-const PageSizes: {
-  [key: string]: number;
-} = {
-  XL: 1056,
-  LG: 800,
-  MD: 640,
-  SM: 480,
-};
-const PageFlipper = ({ volume, issue, pages, numPages }: PageFlipperProps) => {
-  const [page, setPage] = useState(0);
-  const [height, setHeight] = useState<number>(PageSizes.LG);
+const PageFlipper = ({ pages }: PageFlipperProps) => {
+  const [pageIndex, setPageIndex] = useState(0);
+  const [inputValue, setInputValue] = useState((pageIndex + 1).toString());
+
+  const currentPage = pages[pageIndex];
+
+  const height = 800; // or 1056 or 640
   const width = Math.floor((height * 8.5) / 11);
-  const arrowSize = height / 30;
 
   const prevPage = () => {
-    if (page > 0) {
-      setPage(page - 1);
+    if (pageIndex > 0) {
+      const newPageIndex = pageIndex - 1;
+      setPageIndex(newPageIndex);
+      setInputValue((newPageIndex + 1).toString());
     }
   };
   const nextPage = () => {
-    if (page < numPages - 1) {
-      setPage(page + 1);
+    if (pageIndex < pages.length - 1) {
+      const newPageIndex = pageIndex + 1;
+      setPageIndex(newPageIndex);
+      setInputValue((newPageIndex + 1).toString());
+    }
+  };
+
+  const handleChange = (value: string) => {
+    if (/^\d*$/.test(value)) {
+      setInputValue(value);
+    }
+    if (Number(value)) {
+      const index = Number(value) - 1;
+      if (index <= 0) {
+        setPageIndex(0);
+        setInputValue('1');
+      } else if (index >= pages.length) {
+        setPageIndex(pages.length - 1);
+        setInputValue(pages.length.toString());
+      } else {
+        setPageIndex(index);
+      }
     }
   };
   return (
     <>
-      <div className='my-2 grid w-full grid-cols-4 gap-2 px-6'>
-        {Object.keys(PageSizes).map((pageSize) => {
-          return (
-            <button
-              className={`rounded-xl ${height === PageSizes[pageSize] ? 'bg-gray-400' : 'bg-gray-300'}`}
-              onClick={() => setHeight(PageSizes[pageSize])}
-            >
-              {pageSize}
-            </button>
-          );
-        })}
+      <div className='flex items-center justify-center gap-4 px-6'>
+        <img onClick={prevPage} className='h-12 w-12 cursor-pointer md:h-20 md:w-20' src='/icons/arrow-left.svg' />
+
+        {currentPage && <img height={height} width={width} className='max-w-[80vw]' src={currentPage.pageUrl} />}
+
+        <img onClick={nextPage} className='h-12 w-12 cursor-pointer md:h-20 md:w-20' src='/icons/arrow-right.svg' />
       </div>
-      <div className='flex items-center justify-center md:gap-6'>
-        <img
-          onClick={prevPage}
-          className='cursor-pointer'
-          width={arrowSize}
-          height={arrowSize}
-          src='/icons/arrow-left.svg'
-        />
-        {pages[page] && <img height={height} width={width} src={pages[page].pageUrl} />}
-        <img
-          onClick={nextPage}
-          className='cursor-pointer'
-          width={arrowSize}
-          height={arrowSize}
-          src='/icons/arrow-right.svg'
+      <div className='mt-4 flex items-center justify-center gap-2'>
+        <p className='text-2xl'>Jump to page:</p>
+        <input
+          className='input flex max-w-[60px] items-center justify-center'
+          value={inputValue}
+          onChange={(e) => handleChange(e.target.value)}
         />
       </div>
     </>

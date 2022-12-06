@@ -10,7 +10,7 @@ const { title, absoluteFooter } = Astro.props as Props;
 ---
 
 <!DOCTYPE html>
-<html>
+<html data-theme='dracula'>
   <head>
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width' />
@@ -22,6 +22,6 @@ const { title, absoluteFooter } = Astro.props as Props;
     <Navbar client:load>
       <slot />
     </Navbar>
-    <Footer absolute={absoluteFooter}/>
+    <Footer absolute={absoluteFooter} />
   </body>
 </html>

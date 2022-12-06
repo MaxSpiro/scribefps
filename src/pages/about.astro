@@ -1,24 +1,22 @@
 ---
 import Layout from 'components/Layout.astro';
+const aboutText =
+  "As Francis Parker School's leading student-run publication since 1892, the Scribe publishes three to four magazines per school year with a unique theme.";
+const ASPAAText =
+  'For the 2020-2021 school year, the Scribe won both first place with special merit and Most Outstanding News Magazine for 2021.';
 ---
 
 <Layout title='About Us'>
-  <div class='bg-gray-700 min-h-screen flex flex-row text-white p-6'>
-    <div class='w-3/5 mr-6'>
-      <h1 class='mb-4 text-5xl font-semibold'>About us</h1>
-      <p>
-        As Francis Parker School's leading student-run publication since 1892, the Scribe publishes three to four
-        magazines per school year with a unique theme.
-      </p>
-
-      <h2 class='mt-12 mb-4 text-3xl font-semibold'>American Scholastic Press Association Awards</h2>
-      <p>
-        For the 2020-2021 school year, the Scribe won both first place with special merit and Most Outstanding News
-        Magazine for 2021.
-      </p>
-    </div>
-    <div class='w-1/2 overflow-hidden rounded-xl'>
-      <img src='/awards.jpeg' />
+  <div class='min-h-[92vh]'>
+    <div class='md:flex md:gap-4 p-8'>
+      <div class='mr-auto'>
+        <h1 class='mb-4 text-5xl font-semibold'>About us</h1>
+        <p>{aboutText}</p>
+        <img class='container mx-auto md:hidden mt-6 object-cover rounded-xl w-5/6' src='/awards.jpeg' />
+        <h2 class='mt-6 md:mt-12 mb-4 text-3xl font-semibold'>American Scholastic Press Association Awards</h2>
+        <p>{ASPAAText}</p>
+      </div>
+      <img class='hidden md:block object-cover rounded-xl w-1/2' src='/awards.jpeg' />
     </div>
   </div>
 </Layout>
