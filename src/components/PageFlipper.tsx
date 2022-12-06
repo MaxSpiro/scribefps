@@ -38,7 +38,13 @@ const PageFlipper = ({ volume, issue, pages, numPages }: PageFlipperProps) => {
     }
     if (Number(value)) {
       const index = Number(value) - 1;
-      if (index < numPages && index >= 0) {
+      if (index <= 0) {
+        setPageIndex(0);
+        setInputValue('1');
+      } else if (index >= numPages) {
+        setPageIndex(numPages - 1);
+        setInputValue(numPages.toString());
+      } else {
         setPageIndex(index);
       }
     }
@@ -63,8 +69,12 @@ const PageFlipper = ({ volume, issue, pages, numPages }: PageFlipperProps) => {
         />
       </div>
       <div className='mt-4 flex items-center justify-center gap-2'>
-        <p className='text-xl'>Jump to page:</p>
-        <input className='input' value={inputValue} onChange={(e) => handleChange(e.target.value)} />
+        <p className='text-2xl'>Jump to page:</p>
+        <input
+          className='input flex max-w-[60px] items-center justify-center'
+          value={inputValue}
+          onChange={(e) => handleChange(e.target.value)}
+        />
       </div>
     </>
   );
