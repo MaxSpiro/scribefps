@@ -1,5 +1,3 @@
-import Typical from 'react-typical';
-
 const Hero = () => {
   return (
     <div className='flex flex-1 flex-col justify-center gap-6 text-black'>
