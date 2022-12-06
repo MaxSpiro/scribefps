@@ -4,10 +4,9 @@ interface PageFlipperProps {
   volume: string;
   issue: number;
   pages: any[];
-  numPages: number;
 }
 
-const PageFlipper = ({ volume, issue, pages, numPages }: PageFlipperProps) => {
+const PageFlipper = ({ pages }: PageFlipperProps) => {
   const [pageIndex, setPageIndex] = useState(0);
   const [inputValue, setInputValue] = useState((pageIndex + 1).toString());
 
@@ -15,7 +14,6 @@ const PageFlipper = ({ volume, issue, pages, numPages }: PageFlipperProps) => {
 
   const height = 800; // or 1056 or 640
   const width = Math.floor((height * 8.5) / 11);
-  const arrowSize = height / 30;
 
   const prevPage = () => {
     if (pageIndex > 0) {
@@ -25,7 +23,7 @@ const PageFlipper = ({ volume, issue, pages, numPages }: PageFlipperProps) => {
     }
   };
   const nextPage = () => {
-    if (pageIndex < numPages - 1) {
+    if (pageIndex < pages.length - 1) {
       const newPageIndex = pageIndex + 1;
       setPageIndex(newPageIndex);
       setInputValue((newPageIndex + 1).toString());
@@ -41,9 +39,9 @@ const PageFlipper = ({ volume, issue, pages, numPages }: PageFlipperProps) => {
       if (index <= 0) {
         setPageIndex(0);
         setInputValue('1');
-      } else if (index >= numPages) {
-        setPageIndex(numPages - 1);
-        setInputValue(numPages.toString());
+      } else if (index >= pages.length) {
+        setPageIndex(pages.length - 1);
+        setInputValue(pages.length.toString());
       } else {
         setPageIndex(index);
       }
@@ -51,22 +49,12 @@ const PageFlipper = ({ volume, issue, pages, numPages }: PageFlipperProps) => {
   };
   return (
     <>
-      <div className='flex items-center justify-center md:gap-6'>
-        <img
-          onClick={prevPage}
-          className='cursor-pointer'
-          width={arrowSize}
-          height={arrowSize}
-          src='/icons/arrow-left.svg'
-        />
-        {currentPage && <img height={height} width={width} src={currentPage.pageUrl} />}
-        <img
-          onClick={nextPage}
-          className='cursor-pointer'
-          width={arrowSize}
-          height={arrowSize}
-          src='/icons/arrow-right.svg'
-        />
+      <div className='flex items-center justify-center gap-4 px-6'>
+        <img onClick={prevPage} className='h-12 w-12 cursor-pointer md:h-20 md:w-20' src='/icons/arrow-left.svg' />
+
+        {currentPage && <img height={height} width={width} className='max-w-[80vw]' src={currentPage.pageUrl} />}
+
+        <img onClick={nextPage} className='h-12 w-12 cursor-pointer md:h-20 md:w-20' src='/icons/arrow-right.svg' />
       </div>
       <div className='mt-4 flex items-center justify-center gap-2'>
         <p className='text-2xl'>Jump to page:</p>
