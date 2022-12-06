@@ -1,6 +1,5 @@
 ---
 import Layout from 'components/Layout.astro';
-import Hero from 'components/Hero';
 import { client, getUrlByRef } from 'lib/sanityClient';
 const staffInfo = await client.fetch(`*[_type == "staffInfo"]`);
 const staffPicRef = staffInfo[0].staffPic.asset._ref;
@@ -10,7 +9,25 @@ const staffPicUrl = await getUrlByRef(staffPicRef);
 <Layout title='Home'>
   <div class='flex-col md:flex-row flex bg-white'>
     <div class='md:w-1/2 flex flex-col md:items-center justify-center p-8 md:p-0 w-full'>
-      <Hero client:visible />
+      <div class='flex flex-1 flex-col justify-center gap-6 text-black'>
+        <div>
+          <h1 class='text-4xl font-bold text-pink-400 md:mb-[0.75rem] md:text-5xl'>The Scribe FPS</h1>
+          <h1 class='typewriter text-4xl font-bold md:text-5xl max-w-min'>Online</h1>
+        </div>
+        <p class='font-light'>The place for all your favorite articles</p>
+        <div class='flex gap-6'>
+          <a href='/archive'>
+            <button class='rounded-full bg-pink-400 py-2 px-4 text-white transition hover:bg-pink-500'>
+              Latest Issue
+            </button>
+          </a>
+          <a href='/about'>
+            <button class='rounded-full bg-slate-200 px-4 py-2 text-black transition hover:bg-slate-300'>
+              About Us
+            </button>
+          </a>
+        </div>
+      </div>
     </div>
 
     <div class='md:h-auto h-1/2 base:min-w-screen md:w-1/2 md:min-h-screen overflow-hidden'>
@@ -18,3 +35,29 @@ const staffPicUrl = await getUrlByRef(staffPicRef);
     </div>
   </div>
 </Layout>
+
+<style>
+  .typewriter {
+    overflow: hidden;
+    width: 0;
+    padding-right: 2px;
+    border-right: 0.3rem solid black;
+    animation: typing 1s steps(20, end) forwards, blink 0.8s infinite;
+  }
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  @keyframes blink {
+    from {
+      border-color: transparent;
+    }
+    to {
+      border-color: black;
+    }
+  }
+</style>
